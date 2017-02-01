@@ -3,7 +3,7 @@ package com.zuehlke.jasschallenge.client.game;
 import com.zuehlke.jasschallenge.game.cards.Card;
 import com.zuehlke.jasschallenge.game.mode.Mode;
 import com.zuehlke.jasschallenge.client.game.strategy.JassStrategy;
-import com.zuehlke.jasschallenge.client.game.strategy.RandomJassStrategy;
+import com.zuehlke.jasschallenge.client.game.strategy.FloJassStrategy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -27,7 +27,7 @@ public class Player {
     }
 
     public Player(String name) {
-        this(name, new RandomJassStrategy());
+        this(name, new FloJassStrategy());
     }
 
     public Player(String name, JassStrategy strategy) {
@@ -81,7 +81,7 @@ public class Player {
                 cards);
         if(cardIsInvalid) {
             logger.error("Your strategy tried to play an invalid card. Playing random card instead!");
-            return new RandomJassStrategy().chooseCard(cards, session);
+            return new FloJassStrategy().chooseCard(cards, session);
         }
         return cardToPlay;
     }

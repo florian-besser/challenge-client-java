@@ -3,10 +3,9 @@ package com.zuehlke.jasschallenge;
 import com.zuehlke.jasschallenge.client.RemoteGame;
 import com.zuehlke.jasschallenge.client.game.Player;
 import com.zuehlke.jasschallenge.client.game.strategy.JassStrategy;
-import com.zuehlke.jasschallenge.client.game.strategy.RandomJassStrategy;
+import com.zuehlke.jasschallenge.client.game.strategy.FloJassStrategy;
 import com.zuehlke.jasschallenge.messages.type.SessionType;
 
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -30,7 +29,7 @@ class ApplicationBotTryout {
 	private final static String BOT_NAME = "MybotName";
 
 	//CHALLENGE2017: Set your strategoy
-	private final static JassStrategy MY_STRATEGY = new RandomJassStrategy();
+	private final static JassStrategy MY_STRATEGY = new FloJassStrategy();
 
 	//CHALLENGE2017: Set the number of opponent teams with random bots
 	private final static int NUMBER_OF_RANDOM_TEAMS = 4;
@@ -42,8 +41,8 @@ class ApplicationBotTryout {
 		List<Future<RemoteGame>> futures = new LinkedList<>();
 		for (int i = 0; i < NUMBER_OF_RANDOM_TEAMS; i++) {
 			int teamId = i;
-			futures.add(executorService.submit(() -> startGame(LOCAL_URL, new Player("RandomJavaBot" + teamId, new RandomJassStrategy()), SessionType.TOURNAMENT)));
-			futures.add(executorService.submit(() -> startGame(LOCAL_URL, new Player("RandomJavaBot" + teamId, new RandomJassStrategy()), SessionType.TOURNAMENT)));
+			futures.add(executorService.submit(() -> startGame(LOCAL_URL, new Player("RandomJavaBot" + teamId, new FloJassStrategy()), SessionType.TOURNAMENT)));
+			futures.add(executorService.submit(() -> startGame(LOCAL_URL, new Player("RandomJavaBot" + teamId, new FloJassStrategy()), SessionType.TOURNAMENT)));
 		}
 		futures.add(executorService.submit(() -> startGame(LOCAL_URL, new Player(BOT_NAME, MY_STRATEGY), SessionType.TOURNAMENT)));
 		futures.add(executorService.submit(() -> startGame(LOCAL_URL, new Player(BOT_NAME, MY_STRATEGY), SessionType.TOURNAMENT)));

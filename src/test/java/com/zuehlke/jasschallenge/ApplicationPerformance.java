@@ -2,7 +2,7 @@ package com.zuehlke.jasschallenge;
 
 import com.zuehlke.jasschallenge.client.RemoteGame;
 import com.zuehlke.jasschallenge.client.game.Player;
-import com.zuehlke.jasschallenge.client.game.strategy.RandomJassStrategy;
+import com.zuehlke.jasschallenge.client.game.strategy.FloJassStrategy;
 import com.zuehlke.jasschallenge.messages.type.SessionType;
 
 import java.util.Arrays;
@@ -30,7 +30,7 @@ class ApplicationPerformance {
         List<Future<RemoteGame>> futures = new LinkedList<>();
         for (int i = 0; i < 4; i++) {
             int finalI = i;
-            futures.add(executorService.submit(() -> startGame(LOCAL_URL, new Player(BOT_NAME + finalI, new RandomJassStrategy()), SessionType.SINGLE_GAME)));
+            futures.add(executorService.submit(() -> startGame(LOCAL_URL, new Player(BOT_NAME + finalI, new FloJassStrategy()), SessionType.SINGLE_GAME)));
         }
         futures.forEach(ApplicationPerformance::awaitFuture);
         double durationNanos = System.nanoTime() - startNano;
